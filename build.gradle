@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.richard.teamsync'
+version = '0.1.0'
+
+def runeLiteVersion = 'latest.release'
+
+def pluginMainClass = 'com.richard.teamsync.TeamSyncPlugin'
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://repo.runelite.net' }
+}
+
+dependencies {
+    compileOnly group: 'net.runelite', name: 'client', version: runeLiteVersion
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 11
+}
+
+tasks.register('printPluginInfo') {
+    doLast {
+        println "pluginMainClass=${pluginMainClass}"
+        println "runeLiteVersion=${runeLiteVersion}"
+    }
+}
